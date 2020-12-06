@@ -1,22 +1,20 @@
 package Operations;
 
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQDestination;
 
 
 /**
  *
  * @author ulric
  */
-public class QueueCreator
+public class RemoveTopic
 {
     
     /*
@@ -25,10 +23,10 @@ public class QueueCreator
      */	
     private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
-    private static String queueName;
+    private static String destinationName;
     
-    public QueueCreator(String queueName) {
-        this.queueName = queueName;
+    public RemoveTopic(String destinationName) {
+        this.destinationName = destinationName;
     }
     
     public void execute() throws JMSException{
@@ -36,7 +34,7 @@ public class QueueCreator
          * Estabelecendo conexão com o Servidor JMS
          */		
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
-        Connection connection = connectionFactory.createConnection();
+        ActiveMQConnection connection = (ActiveMQConnection) connectionFactory.createConnection();
         connection.start();
 
         /*
@@ -45,26 +43,12 @@ public class QueueCreator
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
         /*
-         * Criando Queue
+         * Criando Topic
          */
-        Destination destination = session.createQueue(this.queueName);
+        Destination destination = session.createTopic(this.destinationName);
         
-        
+        connection.destroyDestination((ActiveMQDestination) destination);
 
-        /*
-         * Criando Produtor
-         */		
-        MessageProducer producer = session.createProducer(destination);
-        TextMessage message = session.createTextMessage("Fila criada.");
-
-        /*
-         * Enviando Mensagem
-         */
-        producer.send(message);
-
-        System.out.println("Messagem: '" + message.getText() + ", Enviada para a Fila");
-
-        producer.close();
         session.close();
         connection.close();
     }

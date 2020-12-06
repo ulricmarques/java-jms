@@ -1,5 +1,7 @@
 package UI;
 
+import UI.Topic.TopicScreen;
+import UI.Queue.QueueScreen;
 import java.io.Serializable;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
