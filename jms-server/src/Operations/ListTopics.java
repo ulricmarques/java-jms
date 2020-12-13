@@ -3,6 +3,8 @@ package Operations;
 import UI.Topic.TopicObject;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.JMSException;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -42,12 +44,11 @@ public class ListTopics{
         topicList = new ArrayList<>();
         
         for(ActiveMQTopic topic : topics){
-       
             TopicObject topicObject = new TopicObject(topic.getTopicName());
             topicList.add(topicObject);
         }
         
-
+       
         connection.close();
         
         return topicList;

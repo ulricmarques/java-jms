@@ -24,3 +24,8 @@ hs_err_pid*
 /jms-activemq/nbproject/private/
 /jms-activemq/build/
 /jms-activemq/dist/
+/jms-server/nbproject/private/
+/jms-client/nbproject/private/
+/jms-server/build/
+/jms-client/build/
+/jms-client/dist/

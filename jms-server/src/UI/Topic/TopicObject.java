@@ -1,17 +1,19 @@
 package UI.Topic;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ulric
  */
-public class TopicObject {
+public class TopicObject  implements Serializable{
     
     private String name;
-    private String deleteText;
+    private String actionText;
     
     public TopicObject(String name) {
        this.name = name;
-       this.deleteText = "excluir";
+       this.actionText = "excluir";
     }
     
     public String getName() {
@@ -20,7 +22,7 @@ public class TopicObject {
     
     
     public String getDeleteText() {
-       return this.deleteText;
+       return this.actionText;
     }
     
     public void setName(String value){
@@ -28,6 +30,6 @@ public class TopicObject {
     }
     
     public void setDeleteText(String value){
-        this.deleteText = value;
+        this.actionText = value;
     }
 }

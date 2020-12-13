@@ -1,4 +1,4 @@
-package UI.Queue;
+package UI.Topic;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -7,35 +7,33 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author ulric
  */
-class QueueTableModel extends AbstractTableModel {
-    private String[] columnNames = {"Nome da Fila",
-                                    "Nº mensagens",
-                                    "Deletar"
+class TopicTableModel extends AbstractTableModel {
+    private String[] columnNames = {"Nome do Tópico",
+                                    "Assinar"
                                     };
     
-    public ArrayList<QueueObject> queueList;
+    public ArrayList<TopicObject> topicList;
     
-    public QueueTableModel(QueueObjectList list){
-        list.readFromBroker();
-        this.queueList = list.getQueues();
+    public TopicTableModel(TopicObjectList list){
+        //list.readFromBroker();
+        this.topicList = list.getTopics();
     }
     
-    public ArrayList<QueueObject> getQueueList(){
-        return queueList;
+    public ArrayList<TopicObject> getTopicList(){
+        return topicList;
     } 
     
-
     public int getColumnCount() {
         return columnNames.length;
     }
 
     public int getRowCount() {
         int size;
-        if (queueList == null) {
+        if (topicList == null) {
            size = 0;
         }
         else {
-           size = queueList.size();
+           size = topicList.size();
         }
         return size;
     }
@@ -48,13 +46,10 @@ class QueueTableModel extends AbstractTableModel {
         Object temp = null;
         switch (col) {
             case 0:
-                temp = queueList.get(row).getName();
+                temp = topicList.get(row).getName();
                 break;
             case 1:
-                temp = queueList.get(row).getNumberOfMessages();
-                break;
-            case 2:
-                temp = queueList.get(row).getDeleteText();
+                temp = topicList.get(row).getDeleteText();
                 break;
             default:
                 break;
@@ -69,7 +64,7 @@ class QueueTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int col) {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
-        if (col < 2) {
+        if (col < 1) {
             return false;
         } else {
             return true;
@@ -93,13 +88,10 @@ class QueueTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         switch (col) {
             case 0:
-                queueList.get(row).setName((String) value);
+                topicList.get(row).setName((String) value);
                 break;
             case 1:
-                queueList.get(row).setNumberOfMessages((int) value);
-                break;
-            case 2:
-                queueList.get(row).setDeleteText((String) value);
+                topicList.get(row).setDeleteText((String) value);
                 break;
             default:
                 break;

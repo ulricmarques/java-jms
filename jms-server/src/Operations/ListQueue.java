@@ -4,6 +4,8 @@ import UI.Queue.QueueObject;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.QueueBrowser;
@@ -61,6 +63,12 @@ public class ListQueue{
             
             QueueObject queueObject = new QueueObject(queue.getQueueName(), numMsgs);
             queueList.add(queueObject);
+        }
+        
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ListTopics.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         session.close();
